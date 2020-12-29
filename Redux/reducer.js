@@ -24,3 +24,4 @@ export const reducerForSearch = (state = initialStateSearch,action)=>{
         }
     }
 }
+

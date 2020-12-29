@@ -2,43 +2,16 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackground, Modal, Button} from 'react-native';
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
-import {favoriteAdd} from '../Redux/action';
+import {favoriteAdd,asyncAction,searchMovie} from '../Redux/action';
 
-export class MovieFinder extends Component {
+class MovieFinder extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-    dataStateJson : [],
-    show:false,
-    catalog_show : []
-    }
   }
-  dataJson = [];
+  
   url = 'http://api.tvmaze.com/search/shows?q=';
   movieName = '';
   url1 ='';
-
-  changeUrl=async()=>{
-    try{
-      this.url1 =  this.url + this.movieName
-      const response = await fetch(this.url1)
-      const data = await response.json()
-      this.dataJson = data
-      console.log('change')
-    } catch (e){
-     console.log(e)
-    }  
-    this.setState({dataStateJson : this.dataJson})
-  }
-
-  componentDidMount = async () => {
-    try {
-      const response = await fetch('http://api.tvmaze.com/search/shows?q=superman')
-      const data = await response.json()
-      this.setState({dataStateJson:data})
-    } catch (e){
-    }
-  }
 
   textUpdate(myText){
     this.movieName=myText,
@@ -52,28 +25,20 @@ export class MovieFinder extends Component {
   render() {
       return(
         <>
+        {console.log('this.url1-',this.url1)}
         <ImageBackground source={require('../image/myphoto.jpg')} style={styles.image}>
           <View style={{alignItems:'center'}}>
             <Text style={styles.text}>Enter name of your movie</Text>
             <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
-            <TouchableOpacity style={styles.button} onPress={this.changeUrl}><Text>Search</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
           </View>
           <ScrollView> 
-                  {this.state.dataStateJson.map((catalog)=>(
+                  {this.props.list?.map((catalog)=>(
                     <View style={{flex:1}} key={catalog.show.id}>
-                      <TouchableOpacity onPress={()=>(this.setState({show:true}),this.modalVisible(catalog.show))}>
                         <ChangeImage style={styles.imageInput} image = {catalog.show}/>
-                      </TouchableOpacity>
                       <Text style={styles.text}>{catalog.show.name}</Text>
                     </View>
                   ))}
-                  <Modal visible={this.state.show}>
-                        <Button title='Hide Description' onPress={()=>(this.setState({show:false}))}/>
-                        <ScrollView> 
-                          <ModalText show={this.state.catalog_show}/>
-                          <ChangeImage style={styles.imageInput} image = {this.state.catalog_show}/>
-                        </ScrollView>
-                  </Modal>
           </ScrollView>   
         </ImageBackground>
        </>
@@ -90,16 +55,27 @@ export const ModalText = (show)=>{
     else{return <><Text style={styles.textModal}>unavialable info</Text></>}
 }
 
-const mapDispatchToProps = (dispacth) => {
+function mapDispatchToProps(dispatch){
     return{
-      addToFavorite :(movieUrl)=>dispacth(favoriteAdd(movieUrl))
+      search : (movieUrl) => dispatch(asyncAction(movieUrl,'search')),
+      favorite : (movieUrl) => dispatch(asyncAction(movieUrl,'favorite')),dispatch
     }
 }
 
-const mapStateToProps = (state)=>{
+function mapStateToProps(state){
   return{
     list : state.list
   }
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MovieFinder);
+
+
+
+{/* <Modal visible={this.state.show}>
+<Button title='Hide Description' onPress={()=>(this.setState({show:false}))}/>
+<ScrollView> 
+  <ModalText show={this.state.catalog_show}/>
+  <ChangeImage style={styles.imageInput} image = {this.state.catalog_show}/>
+</ScrollView>
+</Modal> */}
