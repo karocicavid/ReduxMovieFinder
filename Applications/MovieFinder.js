@@ -7,20 +7,19 @@ import {favoriteAdd,asyncAction,searchMovie} from '../Redux/action';
 class MovieFinder extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      modalShow : false
+    }
   }
-  
   url = 'http://api.tvmaze.com/search/shows?q=';
   movieName = '';
   url1 ='';
+  showModal = false;
+  catalog_show = [];
 
   textUpdate(myText){
     this.movieName=myText,
     this.url1 =  this.url + this.movieName
-  }
-  modalVisible(catalog){
-    this.setState({
-      catalog_show:catalog
-    })
   }
   render() {
       return(
@@ -33,13 +32,23 @@ class MovieFinder extends Component {
             <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
           </View>
           <ScrollView> 
-                  {this.props.list?.map((catalog)=>(
-                    <View style={{flex:1}} key={catalog.show.id}>
-                        <ChangeImage style={styles.imageInput} image = {catalog.show}/>
-                      <Text style={styles.text}>{catalog.show.name}</Text>
+                  {this.props.list?.map((catalog)=>{
+                    return(
+                    <View key={catalog.show.id}>
+                        <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog.show))}>
+                          <ChangeImage style={styles.imageInput} image = {catalog.show}/>
+                        </TouchableOpacity>
+                        <Text style={styles.text}>{catalog.show.name}</Text>
                     </View>
-                  ))}
-                  {console.log('this props -',this.props.list)}
+                    )
+                  })}
+                  <Modal visible={this.state.modalShow}>
+                          <Button title='Hide Description' onPress={()=>(this.setState({modalShow:false}))}/>
+                          <ScrollView> 
+                            <ModalText show={this.catalog_show}/>
+                            <ChangeImage style={styles.imageInput} image = {this.catalog_show}/>
+                          </ScrollView>
+                  </Modal> 
           </ScrollView>   
         </ImageBackground>
        </>
@@ -70,13 +79,6 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MovieFinder);
+{/*   */}
 
 
-
-{/* <Modal visible={this.state.show}>
-<Button title='Hide Description' onPress={()=>(this.setState({show:false}))}/>
-<ScrollView> 
-  <ModalText show={this.state.catalog_show}/>
-  <ChangeImage style={styles.imageInput} image = {this.state.catalog_show}/>
-</ScrollView>
-</Modal> */}

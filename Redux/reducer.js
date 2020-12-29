@@ -17,8 +17,8 @@ export const reducerForFavorite = (state = initialStateFavorite,action)=>{
 export const reducerForSearch = (state = initialStateSearch,action)=>{
     switch(action.type){
         case 'search':{
-            
-           return{  ...state,
+          return{  
+                    ...state,
                     list : action.payload
                 }
         }
