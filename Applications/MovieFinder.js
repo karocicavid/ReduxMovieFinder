@@ -39,6 +39,7 @@ class MovieFinder extends Component {
                       <Text style={styles.text}>{catalog.show.name}</Text>
                     </View>
                   ))}
+                  {console.log('this props -',this.props.list)}
           </ScrollView>   
         </ImageBackground>
        </>
@@ -57,14 +58,14 @@ export const ModalText = (show)=>{
 
 function mapDispatchToProps(dispatch){
     return{
-      search : (movieUrl) => dispatch(asyncAction(movieUrl,'search')),
-      favorite : (movieUrl) => dispatch(asyncAction(movieUrl,'favorite')),dispatch
+      search : (movieUrl) => dispatch(asyncAction(dispatch,movieUrl,'search')),
+      favorite : (movieUrl) => dispatch(asyncAction(dispatch,movieUrl,'favorite')),dispatch
     }
 }
 
 function mapStateToProps(state){
   return{
-    list : state.list
+    list : state.reducerForSearch.list
   }
 }
 
