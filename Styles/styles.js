@@ -28,7 +28,7 @@ export const styles=StyleSheet.create({
     image :{
         flex:1,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'center',
     },
     imageForScreens :{
         flex:1,
@@ -87,7 +87,7 @@ export const styles=StyleSheet.create({
     imageInput:{
       height:500,
       width:'100%',
-      alignItems:'stretch'
+      alignSelf:'stretch'
     },
     //Screen
     screenView :{

@@ -2,5 +2,4 @@ const url1 = [{"score":24.505865,"show":{"id":49878,"url":"http://www.tvmaze.com
 
 url1.map((catalog)=>{
     {console.log('this catalog show  -',catalog.show.id)}
-    
   })

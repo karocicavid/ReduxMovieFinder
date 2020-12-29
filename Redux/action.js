@@ -10,7 +10,6 @@ export const favoriteAdd = (props) =>{
 
 export const asyncAction = (dispatch,url1,pageType)=>{
     //console.log('in asyncAction = url1-',url1,'action-',pageType);
-    
     let data=[];
     return async()=> {
         try{

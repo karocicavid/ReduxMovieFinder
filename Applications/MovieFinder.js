@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackground, Modal, Button} from 'react-native';
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
-import {favoriteAdd,asyncAction,searchMovie} from '../Redux/action';
+import {asyncAction} from '../Redux/action';
 
 class MovieFinder extends Component {
+
   constructor(props) {
     super(props)
-    this.state={
+    this.state = {
       modalShow : false
     }
   }
-  url = 'http://api.tvmaze.com/search/shows?q=';
+
+  url = 'http:// api.tvmaze.com/search/shows?q=';
   movieName = '';
   url1 ='';
   showModal = false;
@@ -21,16 +23,11 @@ class MovieFinder extends Component {
     this.movieName=myText,
     this.url1 =  this.url + this.movieName
   }
+
   render() {
       return(
-        <>
-        {console.log('this.url1-',this.url1)}
         <ImageBackground source={require('../image/myphoto.jpg')} style={styles.image}>
-          <View style={{alignItems:'center'}}>
-            <Text style={styles.text}>Enter name of your movie</Text>
-            <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
-            <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
-          </View>
+          <ViewForSearch routeName = {this.props.route.name}/>
           <ScrollView> 
                   {this.props.list?.map((catalog)=>{
                     return(
@@ -51,15 +48,31 @@ class MovieFinder extends Component {
                   </Modal> 
           </ScrollView>   
         </ImageBackground>
-       </>
       )   
-    }
+  }
+}
+const MovieInstance = new MovieFinder();
+
+export const ViewForSearch = (routeName) =>{
+  if(routeName.routeName == "Search"){
+    return(<View style={{alignItems:'center'}}>
+      <Text style={styles.text}>Enter name of your movie</Text>
+      <TextInput style={styles.input} onChangeText={(text)=>(MovieInstance.textUpdate(text))}/>
+      <TouchableOpacity style={styles.button}  onPress = {() => {MovieInstance.props.search(MovieInstance.url1)}}><Text>Search</Text></TouchableOpacity>
+    </View>)
+  }
+  else{
+    return(<View style={{alignItems:'center'}}>
+      <Text style={styles.text}>Favorite</Text>
+    </View>)
+  }
 }
 
-export const ChangeImage = (show)=>{
-   if(show.image.image!==null){return <><Image resizeMode='contain' style={styles.imageInput} source={{uri:show.image.image.medium}}/></>}
-   else{return <><Image style={styles.imageInput} source ={require('../image/myback.jpg')}/></>} 
+export const ChangeImage = (show) => {
+   if(show.image.image!==null){return <Image resizeMode='cover' style={styles.imageInput} source={{uri:show.image.image.medium}}/>}
+   else{return <Image style={styles.imageInput} source ={require('../image/myback.jpg')}/>} 
 }
+
 export const ModalText = (show)=>{
     if(show.show.summary!==null){return <><Text style={styles.textModal}>{show.show.summary.replace(/(<([^>]+)>)/gi, "")}</Text></>}
     else{return <><Text style={styles.textModal}>unavialable info</Text></>}
@@ -79,6 +92,6 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(MovieFinder);
-{/*   */}
+
 
 

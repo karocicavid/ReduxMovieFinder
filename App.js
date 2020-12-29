@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
-import {StyleSheet,ScrollView,View,Text} from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 import MovieFinder from './Applications/MovieFinder';
-
+import {Button} from "react-native";
+const MyStack = createStackNavigator();
 
 export default class App extends Component {
   constructor(props) {
@@ -11,7 +13,12 @@ export default class App extends Component {
   render() {
       return(
         <>
-        <MovieFinder/>
+        <NavigationContainer>
+          <MyStack.Navigator>
+            <MyStack.Screen name = "Search" component = {MovieFinder}/>
+            <MyStack.Screen name = "Favorite" component = {MovieFinder}/>
+          </MyStack.Navigator>
+        </NavigationContainer>
        </>
       )   
     }
