@@ -78,9 +78,6 @@ export class MovieFinder extends Component {
         </ImageBackground>
        </>
       )   
-
-
-
     }
 }
 
