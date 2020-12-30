@@ -21,16 +21,26 @@ class MovieFinder extends Component {
     this.movieName=myText,
     this.url1 =  this.url + this.movieName
   }
+  ViewForSearch=()=>{
+    if(this.props.route.name == "Search"){
+      return(
+        <View style={{alignItems:'center'}}>
+        <Text style={styles.text}>Enter name of your movie</Text>
+        <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
+        <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
+        </View>
+      )
+    }
+    else{
+      
+    }
+  }
   render() {
       return(
         <>
         {console.log('this.url1-',this.url1)}
         <ImageBackground source={require('../image/myphoto.jpg')} style={styles.image}>
-          <View style={{alignItems:'center'}}>
-            <Text style={styles.text}>Enter name of your movie</Text>
-            <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
-            <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
-          </View>
+        <this.ViewForSearch/>
           <ScrollView> 
                   {this.props.list?.map((catalog)=>{
                     return(
@@ -57,7 +67,7 @@ class MovieFinder extends Component {
 }
 
 export const ChangeImage = (show)=>{
-   if(show.image.image!==null){return <><Image resizeMode='contain' style={styles.imageInput} source={{uri:show.image.image.medium}}/></>}
+   if(show.image.image!==null){return <><Image resizeMode='cover' style={styles.imageInput} source={{uri:show.image.image.medium}}/></>}
    else{return <><Image style={styles.imageInput} source ={require('../image/myback.jpg')}/></>} 
 }
 export const ModalText = (show)=>{
