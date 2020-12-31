@@ -7,6 +7,9 @@ export const styles=StyleSheet.create({
       alignItems:'center',
       justifyContent : 'center',
     },
+    scrollView:{
+      alignSelf:'stretch'
+    },
     button:{
       flex:0.02,
       borderWidth:2,
@@ -47,8 +50,9 @@ export const styles=StyleSheet.create({
     text:{
       fontSize:26,
       color:'white',
-      paddingBottom:15,
-    },
+      paddingBottom:50,
+      alignSelf:'center'
+      },
     textClose:{
       fontSize:26,
       color:'white',
@@ -85,9 +89,15 @@ export const styles=StyleSheet.create({
       alignSelf:'flex-end',
     },
     imageInput:{
-      height:500,
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      height:460,
       width:'100%',
-      alignItems:'stretch'
+    },
+    imageInput2:{
+      height:460,
+      width:'100%',
     },
     //Screen
     screenView :{

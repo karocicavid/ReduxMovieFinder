@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackground, Modal, Button} from 'react-native';
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
-import {asyncAction} from '../Redux/action';
+import {asyncAction,favoriteAdd} from '../Redux/action';
 
 class MovieFinder extends Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class MovieFinder extends Component {
   url = 'http://api.tvmaze.com/search/shows?q=';
   movieName = '';
   url1 ='';
-  //showModal = false;
   catalog_show = [];
 
   textUpdate(myText){
@@ -25,59 +24,58 @@ class MovieFinder extends Component {
   ViewFromProps=()=>{
     if(this.props.route.name == "Search"){
       return(
-        <>
+      <>
         {this.props.list?.map((catalog)=>{
           return(
           <View key={catalog.show.id}>
               <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog.show))}>
                 <ChangeImage style={styles.imageInput} image = {catalog.show}/>
-                <TouchableOpacity onPress = {()=>(this.props.favorite(catalog.show))}><Text style={styles.textModal}>Favorite</Text></TouchableOpacity>
+                <TouchableOpacity onPress = {()=>{this.props.favorite(catalog.show)}}>
+                  <Text style={styles.textModal}>Favorite</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
               <Text style={styles.text}>{catalog.show.name}</Text>
           </View>
-          )
-        })}
-        </>
-      )
-    }
+          )})}
+        </>)}
     else{
-      return(<>
+      return(
+        <View style={{alignSelf:'stretch',width:'100%'}}>
         {this.props.listFav?.map((catalog_show_fromListfav)=>{
           return(
-          <View key={catalog_show_fromListfav.id}>
+          <View style={{alignSelf:'stretch'}} key={catalog_show_fromListfav.id}>
               <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog_show_fromListfav))}>
-                <ChangeImage style={styles.imageInput} image = {catalog_show_fromListfav}/>
+                <ChangeImage style={styles.imageInput2} image = {catalog_show_fromListfav}/>
               </TouchableOpacity>
               <Text style={styles.text}>{catalog_show_fromListfav.name}</Text>
           </View>
           )
         })}
-        </>)
+      </View>)
     }
   }
   ViewForSearch=()=>{
     if(this.props.route.name == "Search"){
       return(
-        <View style={{alignItems:'center'}}>
+        <>
         <Text style={styles.text}>Enter name of your movie</Text>
         <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
         <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
-        </View>
+        </>
       )
     }
     else{
-      return(<View></View>)
+      return(<></>)
     }
   }
 
   render() {
-    console.log('Myfavoritelist - ', this.props.listFav)
       return(
         <>
         {console.log('this.url1-',this.url1)}
         <ImageBackground source={require('../image/myphoto.jpg')} style={styles.image}>
         <this.ViewForSearch/>
-          <ScrollView> 
+        <ScrollView style={styles.scrollView}> 
                   <this.ViewFromProps/>
                   <Modal visible={this.state.modalShow}>
                           <Button title='Hide Description' onPress={()=>(this.setState({modalShow:false}))}/>
@@ -94,8 +92,8 @@ class MovieFinder extends Component {
 }
 
 export const ChangeImage = (show)=>{
-   if(show.image.image!==null){return <><Image resizeMode='cover' style={styles.imageInput} source={{uri:show.image.image.medium}}/></>}
-   else{return <><Image style={styles.imageInput} source ={require('../image/myback.jpg')}/></>} 
+   if(show.image.image!==null){return <Image resizeMode='contain' style={styles.imageInput} source={{uri:show.image.image.medium}}/>}
+   else{return <Image style={styles.imageInput} resizeMode='contain' source ={require('../image/myback.jpg')}/>} 
 }
 export const ModalText = (show)=>{
     if(show.show.summary!==null){return <><Text style={styles.textModal}>{show.show.summary.replace(/(<([^>]+)>)/gi, "")}</Text></>}
@@ -105,12 +103,11 @@ export const ModalText = (show)=>{
 function mapDispatchToProps(dispatch){
     return{
       search : (movieUrl) => dispatch(asyncAction(dispatch,movieUrl,'search')),
-      favorite : (movieUrl) => dispatch(asyncAction(dispatch,movieUrl,'favorite')),dispatch
+      favorite : (propsObject) => dispatch(favoriteAdd(propsObject)),dispatch
     }
 }
 
 function mapStateToProps(state){
-
   return{
     list : state.reducerForSearch.list,
     listFav : state.reducerForFavorite.list

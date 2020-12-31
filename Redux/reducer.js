@@ -7,7 +7,27 @@ let initialStateSearch ={
 export const reducerForFavorite = (state = initialStateFavorite,action)=>{
     switch(action.type){
         case 'favorite':{
-           return{list : [...state.list,action.payload]}
+       console.log(state.list.id,'and',action.payload.id)
+            if(state.list.length==0){
+                return{
+                    list : [...state.list,action.payload]
+                 }
+            }
+            else{
+                let isIdEqual = true;
+                state.list.map((element)=>{
+                    console.log(element.id ,'and',action.payload.id)
+                    if(element.id==action.payload.id){
+                        isIdEqual = true
+                        return{list : [...state.list]}
+                    }
+                    else{isIdEqual=false}
+                })
+                if(!isIdEqual){
+                    console.log('enters')
+                    return{list : [...state.list,action.payload]}
+                }
+            }
         }
         default : {
            return{list : [...state.list]}
@@ -23,7 +43,7 @@ export const reducerForSearch = (state = initialStateSearch,action)=>{
                 }
         }
         default : {
-           return{list : []}
+           return{list : [...state.list]}
         }
     }
 }

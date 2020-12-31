@@ -1,5 +1,5 @@
 export const favoriteAdd = (props) =>{
-    console.log ('favorite action props -',props);
+    // console.log ('favorite action  id -',props.id);
     return(
         {
         type:'favorite',
@@ -23,14 +23,11 @@ export const asyncAction = (dispatch,props,pageType)=>{
             }
         }
     }
-    else if(pageType=='favorite'){
-        return(dispatch(favoriteAdd(props)))
-    }
-   
 }
 
+
 export const searchMovie = (props) => {
-    console.log ('search action props -',props);
+    //console.log ('search action props -',props);
     return(
         {
         type:'search',
