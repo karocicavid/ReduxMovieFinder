@@ -58,7 +58,7 @@ class MovieFinder extends Component {
     if(this.props.route.name == "Search"){
       return(
         <>
-        <Text style={styles.text}>Enter name of your movie</Text>
+        <Text style={styles.textInput}>Enter name of your movie</Text>
         <TextInput style={styles.input} onChangeText={(text)=>(this.textUpdate(text))}/>
         <TouchableOpacity style={styles.button}  onPress = {() => {this.props.search(this.url1)}}><Text>Search</Text></TouchableOpacity>
         </>

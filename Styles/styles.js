@@ -53,6 +53,11 @@ export const styles=StyleSheet.create({
       paddingBottom:50,
       alignSelf:'center'
       },
+    textInput:{
+      fontSize:26,
+      color:'white',
+      alignSelf:'center'
+      },
     textClose:{
       fontSize:26,
       color:'white',

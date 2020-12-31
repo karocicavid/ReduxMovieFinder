@@ -7,7 +7,7 @@ let initialStateSearch ={
 export const reducerForFavorite = (state = initialStateFavorite,action)=>{
     switch(action.type){
         case 'favorite':{
-       console.log(state.list.id,'and',action.payload.id)
+        console.log(state.list.id,'and',action.payload.id)
             if(state.list.length==0){
                 return{
                     list : [...state.list,action.payload]
