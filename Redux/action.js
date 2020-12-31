@@ -7,7 +7,12 @@ export const favoriteAdd = (props) =>{
         }
     )
 }
-
+export const favoriteDelete = (props)=>{
+    return({
+        type:'deleteByOne',
+        payload:props
+    })
+}
 export const asyncAction = (dispatch,props,pageType)=>{
     //console.log('in asyncAction = url1-',url1,'action-',pageType);
     if(pageType == 'search'){

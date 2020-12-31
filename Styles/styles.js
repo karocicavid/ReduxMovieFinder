@@ -86,6 +86,36 @@ export const styles=StyleSheet.create({
       fontSize:26,
       color:'black',
     },
+    textModalAdd:{
+      fontSize:32,
+      fontWeight:'900',
+      color:'black',
+      alignSelf:'center',
+      backgroundColor:'#229954',
+      borderRadius:19,
+      paddingLeft:10,
+      paddingRight:10
+    },
+    textNavigation:{
+      fontSize:22,
+      fontWeight:'900',
+      color:'white',
+      alignSelf:'center',
+      backgroundColor:'#5B2C6F',
+      borderRadius:11,
+      paddingLeft:10,
+      paddingRight:10
+    },
+    textModalDell:{
+      fontSize:32,
+      fontWeight:'900',
+      color:'black',
+      alignSelf:'center',
+      backgroundColor:'#C0392B',
+      borderRadius:19,
+      paddingLeft:10,
+      paddingRight:10
+    },
     logotext:{
       fontSize:26,
       color:'#DBA901',
@@ -98,6 +128,13 @@ export const styles=StyleSheet.create({
       justifyContent:'center',
       alignItems:'center',
       height:460,
+      width:'100%',
+    },
+    imageInput1:{
+      flex:1,
+      justifyContent:'center',
+      alignItems:'center',
+      height:390,
       width:'100%',
     },
     imageInput2:{

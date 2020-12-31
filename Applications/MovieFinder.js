@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackground, Modal, Button} from 'react-native';
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
-import {asyncAction,favoriteAdd} from '../Redux/action';
+import {asyncAction,favoriteAdd,favoriteDelete} from '../Redux/action';
 
 class MovieFinder extends Component {
   constructor(props) {
@@ -30,9 +30,9 @@ class MovieFinder extends Component {
           <View key={catalog.show.id}>
               <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog.show))}>
                 <ChangeImage style={styles.imageInput} image = {catalog.show}/>
-                <TouchableOpacity onPress = {()=>{this.props.favorite(catalog.show)}}>
-                  <Text style={styles.textModal}>Favorite</Text>
-                </TouchableOpacity>
+              </TouchableOpacity> 
+              <TouchableOpacity onPress = {()=>{this.props.favorite(catalog.show)}}>
+                  <Text style={styles.textModalAdd}>Add</Text>
               </TouchableOpacity>
               <Text style={styles.text}>{catalog.show.name}</Text>
           </View>
@@ -46,6 +46,9 @@ class MovieFinder extends Component {
           <View style={{alignSelf:'stretch'}} key={catalog_show_fromListfav.id}>
               <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog_show_fromListfav))}>
                 <ChangeImage style={styles.imageInput2} image = {catalog_show_fromListfav}/>
+              </TouchableOpacity>
+              <TouchableOpacity onPress = {()=>{this.props.delete(catalog_show_fromListfav)}}>
+                  <Text style={styles.textModalDell}>Delete</Text>
               </TouchableOpacity>
               <Text style={styles.text}>{catalog_show_fromListfav.name}</Text>
           </View>
@@ -93,7 +96,7 @@ class MovieFinder extends Component {
 
 export const ChangeImage = (show)=>{
    if(show.image.image!==null){return <Image resizeMode='contain' style={styles.imageInput} source={{uri:show.image.image.medium}}/>}
-   else{return <Image style={styles.imageInput} resizeMode='contain' source ={require('../image/myback.jpg')}/>} 
+   else{return <Image style={styles.imageInput1} resizeMode='contain' source ={require('../image/myback.jpg')}/>} 
 }
 export const ModalText = (show)=>{
     if(show.show.summary!==null){return <><Text style={styles.textModal}>{show.show.summary.replace(/(<([^>]+)>)/gi, "")}</Text></>}
@@ -103,7 +106,8 @@ export const ModalText = (show)=>{
 function mapDispatchToProps(dispatch){
     return{
       search : (movieUrl) => dispatch(asyncAction(dispatch,movieUrl,'search')),
-      favorite : (propsObject) => dispatch(favoriteAdd(propsObject)),dispatch
+      favorite : (propsObject) => dispatch(favoriteAdd(propsObject)),
+      delete : (propsObject)=> dispatch(favoriteDelete(propsObject)),dispatch
     }
 }
 
