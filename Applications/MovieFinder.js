@@ -3,7 +3,6 @@ import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackgro
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
 import {asyncAction,favoriteAdd,favoriteDelete} from '../Redux/action';
-
 class MovieFinder extends Component {
   constructor(props) {
     super(props)

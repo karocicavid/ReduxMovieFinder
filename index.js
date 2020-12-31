@@ -3,10 +3,13 @@ import React from 'react';
 import App from './App';
 import {name as appName} from './app.json';
 import {Provider} from 'react-redux';
-import {myStore} from "./Redux/store";
+import {myStore,mypersistor} from "./Redux/store";
+import { PersistGate } from 'redux-persist/integration/react';
 const RootContainer =()=>(
         <Provider store={myStore}>
-                <App/>
+                <PersistGate loading={null} persistor = {mypersistor}>
+                        <App/>
+                </PersistGate>
         </Provider>
 )
 
