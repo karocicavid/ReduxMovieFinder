@@ -170,6 +170,12 @@ export const styles=StyleSheet.create({
         alignItems:'center',
         justifyContent : 'center',
     },
+    viewModal:{
+        flex : 1,
+        backgroundColor:'#CAA2DA',
+        alignItems:'center',
+        justifyContent : 'center',
+    },
     //Calculator
     device : {
         flex : 1,

@@ -79,11 +79,13 @@ class MovieFinder extends Component {
         <ScrollView style={styles.scrollView}> 
                   <this.ViewFromProps/>
                   <Modal visible={this.state.modalShow}>
+                    <View style={styles.viewModal}>
                           <Button title='Hide Description' onPress={()=>(this.setState({modalShow:false}))}/>
                           <ScrollView> 
                             <ModalText show={this.catalog_show}/>
                             <ChangeImage style={styles.imageInput} image = {this.catalog_show}/>
                           </ScrollView>
+                    </View> 
                   </Modal> 
           </ScrollView>   
         </ImageBackground>
