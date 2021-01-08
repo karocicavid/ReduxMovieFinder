@@ -4,7 +4,7 @@ import {styles} from "../Styles/styles";
 import { ChangeImage } from "./imageView";
 
 export const ViewFromProps=(props)=>{
-  console.log('modallll',props.modalShow)
+  console.log('listfav zzzzzzzzzzzzzzzzzzzzzzzzz ',props.props?.listFav)
     if(props.props.route.name == "Back to search"){
          return(
            <View style={{alignSelf:'stretch',width:'100%'}}>

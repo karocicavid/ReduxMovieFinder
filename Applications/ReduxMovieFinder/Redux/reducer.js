@@ -1,29 +1,15 @@
-let initialStateFavorite = {
+const initialStateFavorite = {
     list :[]
 };
-let initialStateSearch ={
+const initialStateSearch ={
     list : []
 };
 export const reducerForFavorite = (state = initialStateFavorite,action)=>{
     switch(action.type){
-        case 'favorite':{
-            if(state.list.length==0){
-                return{
-                    list : [...state.list,action.payload]
-                 }
-            }
-            else{
-                let isIdEqual = false;
-                state.list.map((element)=>{
-                    if(element.id==action.payload.id){
-                        isIdEqual = true
-                        return{list : state.list}
-                    }
-                })
-                if(!isIdEqual){
-                    return{list : [...state.list,action.payload]}
-                }
-                else{  return{list : state.list}}
+        case 'checkedFavorite':{
+            return {
+                ...state,
+                list:[...state.list,action.payload]
             }
         }
         case 'deleteByOne':{
@@ -39,8 +25,8 @@ export const reducerForSearch = (state = initialStateSearch,action)=>{
     switch(action.type){
         case 'searchFromSaga':{
           return{  
-                    ...state,
-                    list : action.payload
+                    ...state,list : action.payload
+                    
                 }
         }
         default : {

@@ -3,6 +3,7 @@ import {ImageBackground,Text} from 'react-native';
 import {styles} from '../Styles/styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Animated,Easing } from "react-native";
+import { CommonActions } from "@react-navigation/native";
 export default class EntertaimentScreen extends Component{
   constructor(props){
     super(props)
@@ -12,6 +13,7 @@ export default class EntertaimentScreen extends Component{
   componentDidMount(){
     this.animate();
   }
+
   animate(){
     this.animValue1.setValue(0)
     this.animValue2.setValue(0)
@@ -43,7 +45,6 @@ export default class EntertaimentScreen extends Component{
     })
 
     const {navigation} = this.props;
-    console.log(this.props)
     return(
       <Animated.View style={{marginTop,flex:1}}>
             <ImageBackground source={require('../image/entertaiment.png')} style={styles.imageForScreens}>

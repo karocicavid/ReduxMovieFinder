@@ -6,6 +6,15 @@ export const favoriteAdd = (props) =>{
         }
     )
 }
+export const checkedFavorite = (props) =>{
+    return(
+        {
+        type:'checkedFavorite',
+        payload:props
+        }
+    )
+}
+
 export const favoriteDelete = (props)=>{
     return({
         type:'deleteByOne',

@@ -13,7 +13,7 @@ class MovieFinder extends Component {
   }
   modalShow = false;
   catalogShow = [];
-
+  
   render() {
     console.log('modalshow - ',this.modalShow)
       return(
