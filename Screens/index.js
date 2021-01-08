@@ -1,5 +1,4 @@
 export {CalculatorScreen} from './Calculator'
-export {EntertaimentScreen} from './Entertaiment'
 export {MainScreen} from './MainScreen'
 export {MovieFinderScreen} from './MovieFinder'
 export {NewsScreen} from './News'

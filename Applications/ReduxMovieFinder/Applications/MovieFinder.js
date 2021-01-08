@@ -21,23 +21,7 @@ class MovieFinder extends Component {
   }
 
   ViewFromProps=()=>{
-    if(this.props.route.name == "Search"){
-      return(
-      <>
-        {this.props.list?.map((catalog)=>{
-          return(
-          <View key={catalog.show.id}>
-              <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog.show))}>
-                <ChangeImage style={styles.imageInput} image = {catalog.show}/>
-              </TouchableOpacity> 
-              <TouchableOpacity onPress = {()=>{this.props.favorite(catalog.show)}}>
-                  <Text style={styles.textModalAdd}>Add</Text>
-              </TouchableOpacity>
-              <Text style={styles.text}>{catalog.show.name}</Text>
-          </View>
-          )})}
-        </>)}
-    else{
+ if(this.props.route.name == "Back to search"){
       return(
         <View style={{alignSelf:'stretch',width:'100%'}}>
         {this.props.listFav?.map((catalog_show_fromListfav)=>{
@@ -55,9 +39,26 @@ class MovieFinder extends Component {
         })}
       </View>)
     }
+    else{
+      return(
+      <>
+        {this.props.list?.map((catalog)=>{
+          return(
+          <View key={catalog.show.id}>
+              <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(this.catalog_show = catalog.show))}>
+                <ChangeImage style={styles.imageInput} image = {catalog.show}/>
+              </TouchableOpacity> 
+              <TouchableOpacity onPress = {()=>{this.props.favorite(catalog.show)}}>
+                  <Text style={styles.textModalAdd}>Add</Text>
+              </TouchableOpacity>
+              <Text style={styles.text}>{catalog.show.name}</Text>
+          </View>
+          )})}
+        </>)}
   }
+
   ViewForSearch=()=>{
-    if(this.props.route.name == "Search"){
+    if(this.props.route.name == " "){
       return(
         <>
         <Text style={styles.textInput}>Enter name of your movie</Text>
