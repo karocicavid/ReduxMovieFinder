@@ -3,7 +3,7 @@ import {reducerForFavorite,reducerForSearch} from './reducer';
 import { persistReducer,persistStore } from "redux-persist";
 import AsyncStorage from "@react-native-community/async-storage";
 import createSagaMiddleware from "redux-saga";
-import { watchData } from "../Saga/watchers";
+import { watchData } from "../Saga/watcher/watchers";
 
 const sagaMiddleware = createSagaMiddleware();
 

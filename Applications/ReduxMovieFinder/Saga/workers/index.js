@@ -1,0 +1,1 @@
+export {workerForFetch} from './workerForFetch';

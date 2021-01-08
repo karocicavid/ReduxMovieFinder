@@ -59,7 +59,8 @@ export const styles=StyleSheet.create({
       paddingTop:15,
       paddingStart:15,
       paddingBottom:15,
-      paddingEnd:15
+      paddingEnd:15,
+      marginTop:400
     },
     textMovieFinder:{
       fontSize:26,

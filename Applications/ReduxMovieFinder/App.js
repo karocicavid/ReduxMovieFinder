@@ -1,9 +1,6 @@
 import React,{Component} from 'react';
-import {Text } from "react-native";
 import { createStackNavigator } from '@react-navigation/stack';
-import MovieFinder from './Applications/MovieFinder';
-import { TouchableOpacity} from 'react-native-gesture-handler';
-import {styles} from './Styles';
+import MovieFinder from './Component/MovieFinder';
 const MyStack = createStackNavigator();
 
 export default class App extends Component {

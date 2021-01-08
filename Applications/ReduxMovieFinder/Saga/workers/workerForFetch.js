@@ -1,5 +1,5 @@
 import {  put , call } from "redux-saga/effects";
-import { fromSaga } from '../Redux/action';
+import { fromSaga } from '../../Redux/action';
 
 export const fetchData = (payload) =>{
     console.log('data is -',payload.payload)
@@ -14,8 +14,7 @@ export const fetchData = (payload) =>{
     }
 }
 
-export function* workerLoad (payload){
+export function* workerForFetch (payload){
    const example =  yield call (fetchData(payload));
    yield put(fromSaga(example))
 }
-

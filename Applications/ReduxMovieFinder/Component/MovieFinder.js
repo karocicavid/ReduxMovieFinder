@@ -3,7 +3,7 @@ import { View, ScrollView, Text, TextInput, TouchableOpacity,Image, ImageBackgro
 import {styles} from "../Styles/styles"; 
 import {connect} from 'react-redux';
 import {searchMovie,favoriteAdd,favoriteDelete} from '../Redux/action';
-import { ViewForSearch,ViewFromProps,ChangeImage,ModalText } from "../functionsComponents/funcs";
+import { ViewForSearch,ViewFromProps,ChangeImage,ModalText } from "../functionsComponents";
 class MovieFinder extends Component {
   constructor(props) {
     super(props)
@@ -11,16 +11,18 @@ class MovieFinder extends Component {
       modalShow : false
     }
   }
+  modalShow = false;
   catalogShow = [];
 
   render() {
+    console.log('modalshow - ',this.modalShow)
       return(
         <>
         <ImageBackground source={require('../image/myphoto.jpg')} style={styles.image}>
         <ViewForSearch props={this.props} movieName={this.movieName} theUrl={this.url}/>
         <ScrollView style={styles.scrollView}> 
-                  <ViewFromProps props={this.props} catalogShow={this.catalogShow}/>
-                  <Modal visible={this.state.modalShow}>
+                  <ViewFromProps props={this.props} catalogShow={this.catalogShow} modalShow={this.modalShow}/>
+                  <Modal visible={this.modalShow}>
                     <View style={styles.viewModal}>
                           <Button title='Hide Description' onPress={()=>(this.setState({modalShow:false}))}/>
                           <ScrollView> 

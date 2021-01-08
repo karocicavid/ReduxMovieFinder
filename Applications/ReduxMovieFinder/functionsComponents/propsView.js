@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity,Image} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity} from 'react-native';
 import {styles} from "../Styles/styles"; 
+import { ChangeImage } from "./imageView";
 
 export const ViewFromProps=(props)=>{
+  console.log('modallll',props.modalShow)
     if(props.props.route.name == "Back to search"){
          return(
            <View style={{alignSelf:'stretch',width:'100%'}}>
            {props.props.listFav?.map((catalogShowFromListFav)=>{
              return(
              <View style={{alignSelf:'stretch'}} key={catalogShowFromListFav.id}>
-                 <TouchableOpacity onPress ={()=>(props.catalogShow = catalogShowFromListFav)}>
+                 <TouchableOpacity onPress ={()=>((props.catalogShow = catalogShowFromListFav),(props.modalShow=true))}>
                    <ChangeImage style={styles.imageInput2} image = {catalogShowFromListFav}/>
                  </TouchableOpacity>
                  <TouchableOpacity onPress = {()=>{props.props.delete(catalogShowFromListFav)}}>
@@ -27,7 +29,7 @@ export const ViewFromProps=(props)=>{
            {props.props.list?.map((catalog)=>{
              return(
              <View key={catalog.show.id}>
-                 <TouchableOpacity onPress ={()=>((this.setState({modalShow:true})),(props.catalogShow = catalog.show))}>
+                 <TouchableOpacity onPress ={()=>((props.modalShow=true),(props.catalogShow = catalog.show))}>
                    <ChangeImage style={styles.imageInput} image = {catalog.show}/>
                  </TouchableOpacity> 
                  <TouchableOpacity onPress = {()=>{props.props.favorite(catalog.show)}}>
@@ -38,24 +40,3 @@ export const ViewFromProps=(props)=>{
              )})}
            </>)}
      }
-export const ViewForSearch=(props)=>{
-    let movieName='';
-    if(props.props.route.name == " "){
-      return(
-        <>
-        <Text style={styles.textInput}>Enter name of your movie</Text>
-        <TextInput style={styles.input} onChangeText={(text)=>(movieName=text)}/>
-        <TouchableOpacity style={styles.button}  onPress = {() => {props.props.search(movieName)}}><Text>Search</Text></TouchableOpacity>
-        </>
-      )
-    }
-    else{return(<></>)}
-  }
-export const ChangeImage = (show)=>{
-    if(show.image.image!==null){return <Image resizeMode='contain' style={styles.imageInput} source={{uri:show.image.image.medium}}/>}
-    else{return <Image style={styles.imageInput1} resizeMode='contain' source ={require('../image/myback.jpg')}/>} 
- }
-export const ModalText = (show)=>{
-     if(show.show.summary!==null){return <><Text style={styles.textModal}>{show.show.summary.replace(/(<([^>]+)>)/gi, "")}</Text></>}
-     else{return <><Text style={styles.textModal}>unavialable info</Text></>}
- }

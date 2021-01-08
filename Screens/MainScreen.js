@@ -8,7 +8,7 @@ export function MainScreen({ navigation }){
     return (
       <View style={styles.viewClose}>
         <ImageBackground style={styles.imageClose} resizeMode='contain' source={require("../image/main.jpg")}>
-          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}><Text style={styles.textClose}>Press button or Swipe Right</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.dispatch(DrawerActions.openDrawer())}><Text style={styles.textClose}>Open</Text></TouchableOpacity>
         </ImageBackground>
       </View>
     );
